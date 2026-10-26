@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Katherine Flood Early-Warning Dashboard | Cindy Linh Dang</title>
+<meta name="description" content="Case study: a flood early-warning dashboard for Katherine Town Council. Winner of the LTU × NAB Challenge and Best Capstone Project 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF8F6; --ink:#2B2326; --muted:#6F6468; --rose:#B5575F; --rose-dark:#9A444C; --rose-soft:#F4E4E3; --line:#EADFDD;
+  --teal:#00897B; --teal-soft:#DCEFEC; --deep:#243B40;
+  --serif:"Newsreader", Georgia, "Times New Roman", serif;
+  --sans:"DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.7 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+.narrow{max-width:760px}
+h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;line-height:1.08}
+h2{font-size:clamp(2rem,3.6vw,2.8rem);margin-bottom:14px}
+h2 em,h1 em{font-style:italic;color:var(--rose)}
+p{margin:0 0 14px}
+.muted{color:var(--muted)}
+section{padding:96px 0 0}
+.lead{font-size:1.15rem;color:var(--muted);max-width:40em}
+
+/* nav */
+.nav .wrap{height:76px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--serif);font-size:1.5rem;color:var(--ink);text-decoration:none;font-weight:500}
+.back{display:inline-flex;align-items:center;gap:8px;color:var(--muted);text-decoration:none;font-size:.95rem}
+.back:hover{color:var(--ink)}
+.back svg{width:16px;height:16px}
+
+/* header */
+.head{padding:40px 0 0}
+.badge{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--rose);padding:7px 14px;border-radius:999px;margin-bottom:22px}
+.badge svg{width:15px;height:15px}
+.head h1{font-size:clamp(2.8rem,6vw,5rem);max-width:13em;letter-spacing:-.01em}
+.head .lead{margin-top:20px}
+.meta{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin:40px 0 0;padding:24px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.meta dt{font-size:.82rem;color:var(--muted);margin-bottom:2px}
+.meta dd{margin:0;font-weight:500;line-height:1.45}
+.cover{margin-top:40px;border-radius:24px;overflow:hidden;aspect-ratio:21/8;position:relative}
+.cover img{width:100%;height:100%;object-fit:cover}
+.cover figcaption{position:absolute;right:14px;bottom:12px;font-size:.75rem;color:#fff;background:rgba(0,0,0,.45);padding:4px 10px;border-radius:8px}
+
+/* problem */
+.two{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:start}
+.photos{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.photos figure{margin:0;border-radius:16px;overflow:hidden;position:relative;aspect-ratio:3/4}
+.photos img{width:100%;height:100%;object-fit:cover}
+.photos figcaption{position:absolute;left:10px;right:10px;bottom:10px;font-size:.78rem;line-height:1.3;color:#fff;background:rgba(0,0,0,.5);padding:6px 10px;border-radius:10px}
+.hmw{margin:28px 0 0;padding:22px 26px;border-left:3px solid var(--rose);background:#fff;border-radius:0 16px 16px 0;font-family:var(--serif);font-size:1.3rem;line-height:1.4}
+.hmw small{display:block;font-family:var(--sans);font-size:.8rem;color:var(--muted);margin-bottom:6px}
+
+/* river diagram */
+.river{margin-top:36px;background:#fff;border-radius:24px;padding:36px 32px 30px;position:relative;overflow:hidden}
+.river-line{position:absolute;left:32px;right:32px;top:72px;height:10px;border-radius:10px;background:linear-gradient(90deg,#9CC9C3,#00897B 50%,#9CC9C3)}
+.river-flow{position:absolute;right:40px;top:50px;font-size:.78rem;color:var(--muted)}
+.stations{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;position:relative}
+.st{padding-top:56px;position:relative}
+.st::before{content:"";position:absolute;top:28px;left:0;width:22px;height:22px;border-radius:50%;background:#fff;border:4px solid var(--teal)}
+.st.town::before{background:var(--rose);border-color:var(--rose);width:26px;height:26px;top:26px}
+.st b{display:block;font-weight:600}
+.st span{display:block;font-size:.82rem;color:var(--rose-dark);font-weight:500;margin-bottom:4px}
+.st p{font-size:.92rem;color:var(--muted);margin:0}
+.sources{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px;padding-top:22px;border-top:1px dashed var(--line)}
+.sources div{font-size:.9rem;color:var(--muted)}
+.sources b{color:var(--ink);font-weight:600}
+
+/* interactive chart */
+.chart-card{margin-top:36px;background:#fff;border-radius:24px;padding:30px 32px 26px}
+.chart-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-bottom:8px}
+.chart-top h3{font-family:var(--sans);font-size:1.05rem;font-weight:600;line-height:1.4}
+.chart-top p{font-size:.9rem;color:var(--muted);margin:2px 0 0}
+.seg{display:inline-flex;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:4px}
+.seg button{border:0;background:none;font:600 .9rem var(--sans);color:var(--muted);padding:8px 18px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--teal);color:#fff}
+.readout{display:flex;gap:32px;margin:18px 0 6px;flex-wrap:wrap}
+.readout div{font-size:.85rem;color:var(--muted)}
+.readout b{display:block;font-family:var(--serif);font-weight:400;font-size:2rem;line-height:1.1;color:var(--ink)}
+.plot{position:relative}
+.plot svg{width:100%;height:auto;display:block;overflow:visible}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:#fff;font-size:.8rem;line-height:1.45;padding:8px 11px;border-radius:10px;white-space:nowrap;opacity:0;transition:opacity .12s;transform:translate(-50%,-110%)}
+.tip b{font-weight:600}
+.chart-note{font-size:.82rem;color:var(--muted);margin:10px 0 0}
+.tbl{margin-top:8px;font-size:.85rem}
+.tbl summary{cursor:pointer;color:var(--muted)}
+.tbl table{border-collapse:collapse;margin-top:10px;width:100%;max-width:460px}
+.tbl td,.tbl th{text-align:left;padding:4px 10px 4px 0;border-bottom:1px solid var(--line)}
+
+/* dashboard viewer */
+.dash{margin-top:36px;background:var(--deep);border-radius:24px;padding:24px;color:#fff}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.tabs button{border:1px solid rgba(255,255,255,.25);background:transparent;color:rgba(255,255,255,.8);font:500 .9rem var(--sans);padding:9px 16px;border-radius:999px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:#fff;color:var(--deep);border-color:#fff}
+.screen{background:#fff;border-radius:14px;overflow:hidden;cursor:zoom-in;border:0;padding:0;display:block;width:100%}
+.screen img{width:100%;height:auto}
+.dash-cap{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-top:16px;flex-wrap:wrap}
+.dash-cap p{margin:0;max-width:44em;color:rgba(255,255,255,.85);font-size:.95rem}
+.dash-cap b{color:#fff}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:12px;font:500 .95rem/1 var(--sans);text-decoration:none;border:1.5px solid var(--rose);background:var(--rose);color:#fff;white-space:nowrap}
+.btn:hover{background:var(--rose-dark);border-color:var(--rose-dark)}
+.btn.light{background:#fff;color:var(--deep);border-color:#fff}
+.embed{display:none;width:100%;height:860px;border:0;border-radius:14px;background:#fff}
+dialog{border:0;padding:0;background:transparent;max-width:min(1400px,calc(100% - 24px))}
+dialog::backdrop{background:rgba(20,20,20,.75)}
+dialog img{border-radius:12px;max-height:88dvh;width:auto}
+dialog button{position:absolute;top:-14px;right:-14px;width:40px;height:40px;border-radius:50%;border:0;background:#fff;font-size:1.2rem;cursor:pointer}
+
+/* findings */
+.finds{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:32px}
+.find{background:#fff;border-radius:20px;padding:26px 24px}
+.find .k{font-family:var(--serif);font-size:2.4rem;line-height:1;color:var(--teal)}
+.find h3{font-family:var(--sans);font-size:1.02rem;font-weight:600;line-height:1.4;margin:14px 0 8px}
+.find p{font-size:.93rem;color:var(--muted);margin:0}
+
+/* recommendations */
+.recs{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:32px}
+.rec{border:1px solid var(--line);border-radius:20px;padding:26px 26px 22px;background:rgba(255,255,255,.6)}
+.rec .who{font-size:.82rem;font-weight:600;color:var(--rose-dark);margin-bottom:6px}
+.rec ul{margin:0;padding-left:1.1rem}
+.rec li{margin:.5rem 0;color:var(--muted);font-size:.95rem}
+.rec li b{color:var(--ink);font-weight:600}
+
+/* delivery */
+.pm{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:32px}
+.pm div{background:#fff;border-radius:18px;padding:22px 20px}
+.pm strong{display:block;font-family:var(--serif);font-weight:400;font-size:1.7rem;line-height:1.1;color:var(--rose)}
+.pm b{display:block;font-weight:600;margin:10px 0 4px;font-size:.95rem}
+.pm p{font-size:.88rem;color:var(--muted);margin:0;line-height:1.5}
+
+/* role */
+.role{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:start}
+.role ul{margin:0;padding:0;list-style:none}
+.role li{padding:16px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:28px 1fr;gap:12px}
+.role li:last-child{border-bottom:1px solid var(--line)}
+.role li svg{width:22px;height:22px;color:var(--rose);margin-top:3px}
+.role li b{display:block;font-weight:600}
+.role li span{color:var(--muted);font-size:.93rem}
+
+
+/* recognition */
+.recog{margin-top:96px;padding:clamp(32px,5vw,56px);background:var(--rose);color:#fff;border-radius:28px}
+.recog h2{color:#fff}
+.awards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+.award{display:grid;grid-template-columns:56px 1fr;gap:16px;align-items:start;background:rgba(255,255,255,.12);border-radius:18px;padding:20px}
+.award .trophy{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.2);display:grid;place-items:center}
+.award .trophy svg{width:28px;height:28px}
+.award h3{font-family:var(--sans);font-size:1.02rem;font-weight:600;line-height:1.4;margin:0 0 6px}
+.award p{margin:0;font-size:.92rem;opacity:.9}
+.award-photos{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.ap{border:0;padding:0;border-radius:16px;overflow:hidden;cursor:zoom-in;aspect-ratio:4/5;background:rgba(255,255,255,.15)}
+.ap img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;transition:transform .4s}
+.ap-cert{grid-column:span 2;aspect-ratio:16/9;background:#EFE9E4!important;cursor:zoom-in}
+.ap-cert img{object-fit:contain}
+.ap:hover img{transform:scale(1.03)}
+@media (max-width:900px){.awards{grid-template-columns:1fr}.ap-cert{aspect-ratio:1/1}}
+.rq{margin:28px 0 8px;padding:6px 0 6px 24px;border-left:3px solid rgba(255,255,255,.7)}
+.rq blockquote{margin:0;font-family:var(--serif);font-size:clamp(1.6rem,3.2vw,2.3rem);line-height:1.2;color:#fff}
+.rq figcaption{margin-top:12px;font-size:.92rem;opacity:.92}
+.rq figcaption b{display:block;font-weight:600;opacity:1}
+/* outcome */
+.outcome{margin-top:96px;background:var(--rose);color:#fff;border-radius:28px;padding:clamp(36px,6vw,64px);display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center}
+.outcome .trophy{width:96px;height:96px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center}
+.outcome .trophy svg{width:48px;height:48px}
+.outcome h2{color:#fff;margin:0 0 10px}
+.outcome p{margin:0;opacity:.92;max-width:40em}
+
+.next{display:flex;justify-content:space-between;gap:20px;padding:56px 0 72px;flex-wrap:wrap}
+.next a{color:var(--ink);text-decoration:none;font-weight:500}
+.next a:hover{color:var(--rose)}
+.next small{display:block;color:var(--muted);font-weight:400;font-size:.82rem}
+.fine{font-size:.82rem;color:var(--muted);margin-top:14px}
+
+@media (max-width:900px){
+  .meta{grid-template-columns:1fr 1fr}
+  .two,.role,.recs{grid-template-columns:1fr;gap:32px}
+  .finds{grid-template-columns:1fr}
+  .pm{grid-template-columns:1fr 1fr}
+  .outcome{grid-template-columns:1fr;gap:20px}
+  .cover{aspect-ratio:16/9}
+}
+@media (max-width:640px){
+  .wrap{padding:0 20px}
+  section{padding-top:72px}
+  .stations{grid-template-columns:1fr;gap:4px}
+  .river-line{left:25px;right:auto;top:36px;bottom:36px;width:8px;height:auto;background:linear-gradient(180deg,#9CC9C3,#00897B 50%,#9CC9C3)}
+  .river-flow{display:none}
+  .st{padding:6px 0 18px 52px}
+  .st::before,.st.town::before{top:6px;left:0}
+  .st.town::before{left:-2px}
+  .sources{grid-template-columns:1fr}
+  .pm{grid-template-columns:1fr}
+  .chart-card,.river{padding:24px 18px}
+  .dash{padding:16px}
+  .embed{height:620px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23B5575F'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='40' fill='%23FBF8F6'%3EC%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#FBF8F6">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Katherine Flood Early-Warning Dashboard | Cindy Linh Dang">
+<meta property="og:description" content="Case study: a flood early-warning dashboard for Katherine Town Council. Winner of the LTU × NAB Challenge and Best Capstone Project 2026.">
+<meta property="og:url" content="https://cindylinh.github.io/portfolio/katherine.html">
+<meta property="og:image" content="https://cindylinh.github.io/portfolio/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="index.html">Cindy Linh Dang</a>
+    <a class="back" href="index.html#work"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5m6-6-6 6 6 6"/></svg>All projects</a>
+  </div>
+</header>
+
+<main>
+<!-- HEADER -->
+<section class="head" style="padding-top:40px">
+  <div class="wrap">
+    <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg>Winner, LTU × NAB Challenge 2026</span>
+    <h1>Telling a town <em>when to start preparing</em> for a flood.</h1>
+    <p class="lead">A flood early-warning dashboard for Katherine Town Council, built from 130+ years of rainfall and river data. Judged the best dashboard in the challenge's three-year history.</p>
+    <dl class="meta">
+      <div><dt>Brief</dt><dd>Capstone scenario: Katherine Town Council and community services</dd></div>
+      <div><dt>Team</dt><dd>6 consultants, La Trobe University capstone</dd></div>
+      <div><dt>Tools</dt><dd>Python, Excel, Tableau</dd></div>
+      <div><dt>Year</dt><dd>2026</dd></div>
+    </dl>
+    <figure class="cover" style="margin-left:0;margin-right:0">
+      <img src="images/img-8eb0840a.jpg" alt="Aerial view of Katherine under floodwater">
+      <figcaption>Katherine during a major flood</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section>
+  <div class="wrap two">
+    <div>
+      <h2>The problem</h2>
+      <p class="lead">Flooding is Katherine's most immediate high-impact climate risk. Major floods hit in 1957, 1998, 2006 and again in 2026, when schools closed and the hospital was evacuated.</p>
+      <p class="muted">The council and local community services had the data, but in separate places: rainfall from one source, river height from another, flood history in reports. Nothing answered the one question that matters before the wet season: <b style="color:var(--ink)">when should we start preparing?</b></p>
+      <p class="hmw"><small>Our brief, as a "how might we"</small>How might we combine historical flood events with key flood indicators, so Katherine can anticipate flood risk and prepare more effectively?</p>
+    </div>
+    <div class="photos">
+      <figure><img src="images/img-f6c908c9.jpg" alt="Road closed sign in flooded Katherine street"><figcaption>Roads cut off in town</figcaption></figure>
+      <figure><img src="images/img-673514e6.jpg" alt="Katherine Hospital emergency entrance sign"><figcaption>Essential services under pressure</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- DATA APPROACH -->
+<section>
+  <div class="wrap">
+    <h2>Reading the whole river, <em>not just the town</em></h2>
+    <p class="lead">Flooding depends on how much rain falls, for how long, and where in the catchment it lands. So instead of one weather station, we followed the river.</p>
+    <div class="river">
+      <div class="river-line" aria-hidden="true"></div>
+      <div class="river-flow" aria-hidden="true">River flows this way</div>
+      <div class="stations">
+        <div class="st"><span>Upstream</span><b>Nitmiluk National Park</b><p>Early signal: rain here reaches town days later.</p></div>
+        <div class="st town"><span>Impact area</span><b>Katherine Town + Bridge gauge</b><p>Where residents, council assets and services are exposed. River height measured here.</p></div>
+        <div class="st"><span>Downstream</span><b>Manbulloo</b><p>A reference point to compare against.</p></div>
+      </div>
+      <div class="sources">
+        <div><b>SILO (Long Paddock)</b><br>Daily rainfall and temperature at all three points, 1890–2026</div>
+        <div><b>Bureau of Meteorology</b><br>Katherine River height at Katherine Bridge, 1957–2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LAG CHART -->
+<section>
+  <div class="wrap">
+    <h2>Rain comes first. <em>The river follows.</em></h2>
+    <p class="lead">The chart judges noticed most. Averaged over 130 years and read from July to June, so the wet season runs left to right. Hover over a month to compare.</p>
+    <div class="chart-card">
+      <div class="chart-top"><div>
+        <h3>Average daily rainfall and river height, by month</h3>
+        <p>Rainfall: average of 3 stations, 1890–2026. River height: Katherine Bridge, 1957–2026.</p>
+      </div></div>
+      <div class="plot" id="lagPlot">
+        <svg id="lag" viewBox="0 0 720 390" role="img" aria-label="Two charts sharing months. Rainfall peaks in January, river height peaks in February, showing a lag."></svg>
+        <div class="tip" id="lagTip"></div>
+      </div>
+      <p class="chart-note">Rain builds from November and peaks in January, but the river doesn't peak until February and stays high into March. That gap is why early wet-season rain (shaded) is the first warning sign.</p>
+      <details class="tbl"><summary>Show the numbers</summary><table id="lagTbl"></table></details>
+    </div>
+  </div>
+</section>
+
+<!-- INTERACTIVE CHART -->
+<section>
+  <div class="wrap">
+    <h2>The 30 days before a flood</h2>
+    <p class="lead">Then the final trigger: the pattern that became the dashboard's warning signal. Pick a flood to see how rain built up at Nitmiluk before it hit.</p>
+    <div class="chart-card">
+      <div class="chart-top">
+        <div>
+          <h3>Rainfall total over the 30 days before each major flood</h3>
+          <p>Nitmiluk National Park, running total in mm. Dots mark single days with 100mm or more.</p>
+        </div>
+        <div class="seg" role="group" aria-label="Select a flood">
+          <button type="button" data-f="1998" aria-pressed="false">1998</button>
+          <button type="button" data-f="2006" aria-pressed="false">2006</button>
+          <button type="button" data-f="2026" aria-pressed="true">2026</button>
+        </div>
+      </div>
+      <div class="readout">
+        <div><b id="rTotal">–</b>30-day total</div>
+        <div><b id="rDown">–</b>Biggest single day</div>
+      </div>
+      <div class="plot" id="plot">
+        <svg id="chart" viewBox="0 0 720 300" role="img" aria-label="Running rainfall total over 30 days before the selected flood, with a 450mm threshold line"></svg>
+        <div class="tip" id="tip"></div>
+      </div>
+      <p class="chart-note">Before all three floods, the total passed about 450mm and ended with a 100mm+ downpour. Source: SILO daily rainfall, our analysis.</p>
+      <details class="tbl"><summary>Show the numbers</summary><table id="tbl"></table></details>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section>
+  <div class="wrap">
+    <h2>The dashboard</h2>
+    <p class="lead">Three pages, each building on the last: what has happened, what drives a flood, and what to watch now.</p>
+    <div class="dash">
+      <div class="tabs" role="tablist" aria-label="Dashboard pages">
+        <button role="tab" aria-selected="true" data-i="0">1. The story</button>
+        <button role="tab" aria-selected="false" data-i="1">2. Driving factors</button>
+        <button role="tab" aria-selected="false" data-i="2">3. Flood watch</button>
+      </div>
+      <!-- When the Tableau Public link exists, it is shown here instead of the screenshots (see TABLEAU_URL in the script) -->
+      <iframe class="embed" id="embed" title="Katherine flood dashboard on Tableau Public" loading="lazy"></iframe>
+      <button class="screen" id="screen" aria-label="Open screenshot full size"><img id="shot" src="images/img-b9d7d0ec.jpg" alt="Dashboard page 1"></button>
+      <div class="dash-cap">
+        <p id="dashCap"></p>
+        <a class="btn light" id="tabLink" href="#" target="_blank" rel="noopener" style="display:none">Explore it in Tableau</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINDINGS -->
+<section>
+  <div class="wrap">
+    <h2>What we found</h2>
+    <div class="finds">
+      <div class="find"><div class="k">~2 months</div><h3>Early wet-season rain is the first warning</h3><p>River height lags rainfall. Rain that builds in October to December shows up in the river in February and March, so above-average early rain raises later flood risk.</p></div>
+      <div class="find"><div class="k">450mm + 100mm</div><h3>The final downpour tips it over</h3><p>Before each recent major flood, 30-day rain passed about 450mm and ended with a 100mm+ day. That downpour removed the lag and the river rose almost instantly.</p></div>
+      <div class="find"><div class="k">Fewer, worse</div><h3>Floods are less frequent but more severe</h3><p>Three of the last four major floods followed six months of rain far above earlier events, and rain across the wider catchment mattered as much as rain in town.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- RECOMMENDATIONS -->
+<section>
+  <div class="wrap">
+    <h2>What we recommended</h2>
+    <p class="lead">Every recommendation traces back to a pattern in the data, and works alongside official BoM warnings rather than replacing them.</p>
+    <div class="recs">
+      <div class="rec"><div class="who">Katherine Town Council</div>
+        <ul>
+          <li><b>Prepare before the wet season.</b> Complete asset checks and ready staff and equipment, because heavy rain was followed by rapid river rises.</li>
+          <li><b>Watch the wider catchment.</b> Monitor upstream rainfall alongside Katherine Bridge river height, since upstream rain came before every major flood we analysed.</li>
+        </ul></div>
+      <div class="rec"><div class="who">Community services (health, education, disability)</div>
+        <ul>
+          <li><b>Plan for disrupted services.</b> Identify clients who need extra help, confirm transport, and prepare other ways to deliver care, as the 2026 school closures and hospital evacuation showed.</li>
+          <li><b>Coordinate with council.</b> Agree shared contacts and joint preparedness reviews, triggered by the same dashboard indicators.</li>
+        </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERY -->
+<section>
+  <div class="wrap">
+    <h2>From prototype to <em>a plan the council could fund</em></h2>
+    <p class="lead">Alongside the dashboard, we wrote a full Project Management Plan for rolling it out as a live system.</p>
+    <div class="pm">
+      <div><strong>16 weeks</strong><b>Timeline</b><p>February to May 2027, from planning and data preparation to testing and handover.</p></div>
+      <div><strong>~$140.6K</strong><b>Costed budget</b><p>Including a 20% contingency, plus about $3.4K a year to keep it running.</p></div>
+      <div><strong>3 stages</strong><b>Staged rollout</b><p>Test environment, restricted release, then full launch, with a rollback point if data or access fails.</p></div>
+      <div><strong>3 checks</strong><b>Before staff rely on alerts</b><p>Historical backtest, restricted live trial, then a wet-season trial, with an ISO 31000 risk register.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MY ROLE -->
+<section>
+  <div class="wrap role">
+    <div>
+      <h2>My role</h2>
+      <p class="muted">A six-person team effort. These are the parts I owned.</p>
+    </div>
+    <ul>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><div><b>Initial data exploration</b><span>Explored 130+ years of rainfall, temperature and river data to understand Katherine's climate risks before the team chose to focus on flooding.</span></div></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/></svg><div><b>Choosing where to measure</b><span>Selected the rainfall points along the river and tested whether upstream rain predicted floods better than rain in town.</span></div></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><div><b>Flood indicator analysis and dashboard support</b><span>Analysed rainfall and river height around past floods in Python, drilling from year to month to day, and helped build the Tableau dashboard from those findings.</span></div></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg><div><b>Delivery and deployment plan</b><span>Wrote the build cycles, Definition of Ready and Done, and deployment sections of the Project Management Plan.</span></div></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg><div><b>Approving consultant</b><span>Reviewed and approved the team's work across the whole plan, and co-led integrating and editing it into one consistent document.</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<div class="wrap">
+  <section class="recog" id="recognition">
+    <h2>Recognition</h2>
+    <div class="awards">
+      <div class="award">
+        <div class="trophy" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg></div>
+        <div><h3>Winner, LTU × NAB Work-Integrated Learning Challenge 2026</h3>
+        <p>Recognised by NAB as the best dashboard in the challenge's three-year history.</p></div>
+      </div>
+      <div class="award">
+        <div class="trophy" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/></svg></div>
+        <div><h3>Best Capstone Project, La Trobe Business School</h3>
+        <p>Awarded to the top performing undergraduate business analytics group for proposing a solution that effectively improved the client's business case.</p></div>
+      </div>
+    </div>
+    <figure class="rq">
+      <blockquote>&ldquo;The best dashboard I've seen in the three years of the challenge.&rdquo;</blockquote>
+      <figcaption><b>Cameron Briscoe</b>Senior Consultant, Partnerships, Enterprise Data &amp; Analytics, NAB</figcaption>
+    </figure>
+    <div class="award-photos">
+      <button class="ap ap-cert" data-zoom><img src="images/img-7738c401.jpg" alt="The LTU × NAB challenge certificate and the Best Capstone Project certificate"></button>
+      <button class="ap" data-zoom><img src="images/img-0708cbaa.jpg" alt="Cindy holding her two award certificates at the final presentation"></button>
+      <button class="ap" data-zoom><img src="images/img-5df1180b.jpg" alt="Cindy with her NAB challenge certificate at the BUS3003 final presentation"></button>
+    </div>
+  </section>
+  <p class="fine">A proposal and prototype for the council, designed to support official BoM flood warnings, not replace them. Flood photos are for context.</p>
+  <section class="cta-end" aria-label="Contact">
+<style>
+.cta-end{max-width:1120px;margin:72px auto 8px;padding:0 32px;box-sizing:border-box}
+.cta-end .in{background:#2B2326;color:#F7EFEC;border-radius:28px;padding:44px 48px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px;position:relative;overflow:hidden}
+.cta-end .in::before{content:"";position:absolute;right:-12%;bottom:-60%;width:60%;height:160%;background:radial-gradient(closest-side,rgba(181,87,95,.35),transparent);pointer-events:none}
+.cta-end h2{font-family:"Newsreader",Georgia,serif;font-weight:400;font-size:clamp(1.8rem,3.4vw,2.6rem);line-height:1.1;margin:0;position:relative}
+.cta-end h2 em{font-style:italic;color:#F2B6BB}
+.cta-end .b{display:flex;flex-wrap:wrap;gap:10px;position:relative}
+.cta-end a{display:inline-flex;align-items:center;padding:12px 22px;border-radius:999px;border:1.5px solid rgba(247,239,236,.4);color:#fff;text-decoration:none;font-weight:600;font-size:.95rem;font-family:"DM Sans",system-ui,sans-serif;transition:transform .2s,border-color .2s,background .2s}
+.cta-end a:hover{transform:translateY(-2px);border-color:#fff}
+.cta-end a.s{background:#B5575F;border-color:#B5575F}.cta-end a.s:hover{background:#c96a72;border-color:#c96a72}
+@media (max-width:600px){.cta-end{padding:0 16px;margin-top:56px}.cta-end .in{padding:32px 24px}.cta-end .b a{flex:1 1 auto;justify-content:center}}
+</style>
+<div class="in"><h2>So, what <em>decision</em> are you trying to make?</h2>
+<div class="b"><a class="s" href="mailto:danglinh260981@gmail.com">Email me</a><a href="https://www.linkedin.com/in/cindy-linh-dang" target="_blank" rel="noopener">LinkedIn ↗</a><a href="Cindy_Dang_CV.pdf" download>Download CV</a></div></div>
+</section>
+<nav class="next" aria-label="More projects">
+    <a href="index.html#work"><small>Back to</small>All projects</a>
+    <a href="nyc.html" style="text-align:right"><small>Next project</small>NYC Mobility Pipeline</a>
+  </nav>
+</div>
+</main>
+
+<dialog id="zoom"><button aria-label="Close">×</button><img id="zoomImg" alt=""></dialog>
+
+<script>
+/* ---------- Tableau Public: paste your published link here, e.g.
+   "https://public.tableau.com/views/KatherineFloodDashboard/StoryBoard"  ---------- */
+const TABLEAU_URL = "";
+
+/* ---------- Interactive charts (real SILO + BoM data). Both redraw at the real width so text stays readable. ---------- */
+const FLOODS = {"1998":[["28 Dec 1997",11.2,11.2],["29 Dec 1997",1.6,12.8],["30 Dec 1997",1.0,13.8],["31 Dec 1997",1.8,15.6],["1 Jan 1998",81.9,97.5],["2 Jan 1998",35.9,133.4],["3 Jan 1998",51.0,184.4],["4 Jan 1998",0.6,185.0],["5 Jan 1998",0.1,185.1],["6 Jan 1998",1.1,186.2],["7 Jan 1998",0.0,186.2],["8 Jan 1998",0.1,186.3],["9 Jan 1998",12.8,199.1],["10 Jan 1998",22.0,221.1],["11 Jan 1998",0.5,221.6],["12 Jan 1998",9.5,231.1],["13 Jan 1998",27.3,258.4],["14 Jan 1998",0.0,258.4],["15 Jan 1998",0.8,259.2],["16 Jan 1998",0.2,259.4],["17 Jan 1998",28.5,287.9],["18 Jan 1998",29.1,317.0],["19 Jan 1998",0.3,317.3],["20 Jan 1998",25.0,342.3],["21 Jan 1998",24.5,366.8],["22 Jan 1998",5.3,372.1],["23 Jan 1998",6.1,378.2],["24 Jan 1998",0.3,378.5],["25 Jan 1998",8.7,387.2],["26 Jan 1998",206.2,593.4],["27 Jan 1998",263.5,856.9]],"2006":[["8 Mar 2006",0.3,0.3],["9 Mar 2006",9.2,9.5],["10 Mar 2006",0.0,9.5],["11 Mar 2006",12.7,22.2],["12 Mar 2006",15.5,37.7],["13 Mar 2006",16.2,53.9],["14 Mar 2006",17.8,71.7],["15 Mar 2006",2.9,74.6],["16 Mar 2006",20.8,95.4],["17 Mar 2006",15.9,111.3],["18 Mar 2006",10.6,121.9],["19 Mar 2006",2.6,124.5],["20 Mar 2006",9.0,133.5],["21 Mar 2006",53.4,186.9],["22 Mar 2006",0.1,187.0],["23 Mar 2006",0.5,187.5],["24 Mar 2006",0.4,187.9],["25 Mar 2006",2.3,190.2],["26 Mar 2006",0.0,190.2],["27 Mar 2006",1.8,192.0],["28 Mar 2006",8.1,200.1],["29 Mar 2006",16.1,216.2],["30 Mar 2006",2.0,218.2],["31 Mar 2006",0.0,218.2],["1 Apr 2006",0.0,218.2],["2 Apr 2006",16.6,234.8],["3 Apr 2006",30.0,264.8],["4 Apr 2006",31.2,296.0],["5 Apr 2006",132.7,428.7],["6 Apr 2006",28.0,456.7],["7 Apr 2006",1.9,458.6]],"2026":[["5 Feb 2026",2.0,2.0],["6 Feb 2026",12.0,14.0],["7 Feb 2026",2.0,16.0],["8 Feb 2026",17.1,33.1],["9 Feb 2026",7.0,40.1],["10 Feb 2026",34.3,74.4],["11 Feb 2026",1.2,75.6],["12 Feb 2026",16.8,92.4],["13 Feb 2026",21.1,113.5],["14 Feb 2026",4.5,118.0],["15 Feb 2026",17.6,135.6],["16 Feb 2026",4.5,140.1],["17 Feb 2026",1.8,141.9],["18 Feb 2026",1.1,143.0],["19 Feb 2026",0.4,143.4],["20 Feb 2026",9.2,152.6],["21 Feb 2026",0.0,152.6],["22 Feb 2026",0.8,153.4],["23 Feb 2026",0.2,153.6],["24 Feb 2026",9.2,162.8],["25 Feb 2026",1.1,163.9],["26 Feb 2026",24.0,187.9],["27 Feb 2026",3.7,191.6],["28 Feb 2026",45.6,237.2],["1 Mar 2026",1.5,238.7],["2 Mar 2026",11.4,250.1],["3 Mar 2026",2.9,253.0],["4 Mar 2026",67.5,320.5],["5 Mar 2026",7.5,328.0],["6 Mar 2026",143.4,471.4],["7 Mar 2026",9.9,481.3]]};
+const MONTHLY = [[1, 7.88, 3.09], [2, 7.55, 4.8], [3, 5.47, 4.21], [4, 1.12, 1.27], [5, 0.18, 0.45], [6, 0.06, 0.34], [7, 0.06, 0.29], [8, 0.02, 0.26], [9, 0.22, 0.25], [10, 0.89, 0.25], [11, 3.06, 0.34], [12, 6.41, 1.21]];
+const NS='http://www.w3.org/2000/svg';
+const mk=(svg)=>(t,a,p=svg)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p.appendChild(e);return e;};
+const FONT={'font-family':'DM Sans,sans-serif'};
+const HALO={stroke:'#fff','stroke-width':4,'paint-order':'stroke','stroke-linejoin':'round'};
+const widthOf=svg=>Math.round(Math.min(720,Math.max(300,svg.parentNode.clientWidth)));
+
+/* 30 days before a flood */
+let floodCur='2026', floodVals=null;
+function buildFlood(animateFrom){
+  const svg=document.getElementById('chart'), tip=document.getElementById('tip'); svg.innerHTML='';
+  const el=mk(svg), W=widthOf(svg), H=W<500?260:300, m={l:40,r:12,t:16,b:34}, iw=W-m.l-m.r, ih=H-m.t-m.b, YMAX=900;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  const x=i=>m.l+i/30*iw, y=v=>m.t+ih-(v/YMAX)*ih;
+  const T=(x0,y0,t,o={})=>{const e=el('text',Object.assign({x:x0,y:y0,'font-size':11,fill:'#6F6468'},FONT,o));e.textContent=t;return e;};
+  [0,150,300,600,750,900].forEach(v=>{el('line',{x1:m.l,x2:W-m.r,y1:y(v),y2:y(v),stroke:'#EFE6E4'});T(m.l-8,y(v)+4,v,{'text-anchor':'end'});});
+  [[0,'30 days before','start'],[15,'15 days','middle'],[30,'Flood day','end']].forEach(([i,t,a])=>T(x(i),H-10,t,{'text-anchor':a}));
+  el('line',{x1:m.l,x2:W-m.r,y1:y(450),y2:y(450),stroke:'#B5575F','stroke-width':1.5,'stroke-dasharray':'5 4'});
+  T(m.l+6,y(450)-7,W<500?'450mm threshold':'450mm warning threshold',Object.assign({'font-size':11.5,'font-weight':600,fill:'#9A444C'},HALO));
+  const area=el('path',{fill:'#DCEFEC'}), line=el('path',{fill:'none',stroke:'#00897B','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'});
+  const dots=el('g',{}), guide=el('line',{y1:m.t,y2:m.t+ih,stroke:'#2B2326',opacity:0}), hov=el('circle',{r:5,fill:'#00897B',stroke:'#fff','stroke-width':2,opacity:0});
+  const hit=el('rect',{x:m.l,y:m.t,width:iw,height:ih,fill:'transparent'});
+  const render=v=>{const d=v.map((c,i)=>`${i?'L':'M'}${x(i).toFixed(1)},${y(c).toFixed(1)}`).join('');line.setAttribute('d',d);area.setAttribute('d',d+`L${x(30)},${y(0)}L${x(0)},${y(0)}Z`);};
+  const drawDots=()=>{dots.innerHTML='';FLOODS[floodCur].forEach((p,i)=>{if(p[1]>=100){
+    el('circle',{cx:x(i),cy:y(p[2]),r:5.5,fill:'#B5575F',stroke:'#fff','stroke-width':2},dots);
+    const t=el('text',Object.assign({x:x(i)-10,y:y(p[2])-8,'text-anchor':'end','font-size':11.5,'font-weight':600,fill:'#2B2326'},FONT,HALO),dots); t.textContent=`${Math.round(p[1])}mm in a day`;}});};
+  const target=FLOODS[floodCur].map(p=>p[2]);
+  if(animateFrom && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const t0=performance.now(); const step=now=>{const k=Math.min(1,(now-t0)/450),e=1-Math.pow(1-k,3); floodVals=animateFrom.map((v,i)=>v+(target[i]-v)*e); render(floodVals); if(k<1) requestAnimationFrame(step); else drawDots();}; requestAnimationFrame(step);
+  } else { floodVals=target; render(target); drawDots(); }
+  const move=e=>{const r=svg.getBoundingClientRect(), sx=(e.clientX-r.left)/r.width*W, i=Math.max(0,Math.min(30,Math.round((sx-m.l)/iw*30))), p=FLOODS[floodCur][i];
+    guide.setAttribute('x1',x(i));guide.setAttribute('x2',x(i));guide.setAttribute('opacity',.25);
+    hov.setAttribute('cx',x(i));hov.setAttribute('cy',y(p[2]));hov.setAttribute('opacity',1);
+    tip.innerHTML=`<b>${p[0]}</b><br>Rain that day: ${p[1]}mm<br>Running total: ${Math.round(p[2])}mm`;
+    tip.style.left=Math.min(Math.max(x(i)/W*r.width,80),r.width-80)+'px'; tip.style.top=(y(p[2])/H*r.height-8)+'px'; tip.style.opacity=1;};
+  hit.addEventListener('pointermove',move); hit.addEventListener('pointerdown',move);
+  hit.addEventListener('pointerleave',()=>{tip.style.opacity=0;guide.setAttribute('opacity',0);hov.setAttribute('opacity',0);});
+  const d=FLOODS[floodCur], big=d.reduce((a,b)=>b[1]>a[1]?b:a);
+  document.getElementById('rTotal').textContent=Math.round(d[30][2])+'mm';
+  document.getElementById('rDown').textContent=Math.round(big[1])+'mm';
+  document.getElementById('tbl').innerHTML='<tr><th>Date</th><th>Rain that day</th><th>Running total</th></tr>'+d.map(p=>`<tr><td>${p[0]}</td><td>${p[1]}mm</td><td>${Math.round(p[2])}mm</td></tr>`).join('');
+}
+document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.seg button').forEach(o=>o.setAttribute('aria-pressed',o===b)); const from=floodVals; floodCur=b.dataset.f; buildFlood(from);
+}));
+
+/* Rain comes first, the river follows */
+function buildLag(){
+  const svg=document.getElementById('lag'), tip=document.getElementById('lagTip'); svg.innerHTML='';
+  const el=mk(svg), W=widthOf(svg), narrow=W<500, H=narrow?350:390;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  const NAMES=narrow?['J','F','M','A','M','J','J','A','S','O','N','D']:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const FULL=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const order=[7,8,9,10,11,12,1,2,3,4,5,6].map(mn=>MONTHLY.find(r=>r[0]===mn));
+  const l=34,r=8,iw=W-l-r,cw=iw/12,cx=i=>l+cw*i+cw/2;
+  const P1={t:42,h:narrow?120:140,max:8}; const P2={t:P1.t+P1.h+56,h:narrow?95:110,max:5};
+  const y1=v=>P1.t+P1.h-v/P1.max*P1.h, y2=v=>P2.t+P2.h-v/P2.max*P2.h;
+  const T=(x0,y0,t,o={})=>{const e=el('text',Object.assign({x:x0,y:y0,'font-size':11,fill:'#6F6468'},FONT,o));e.textContent=t;return e;};
+  el('rect',{x:l+cw*3,y:P1.t-22,width:cw*3,height:P2.t+P2.h-P1.t+22,fill:'#F4E4E3',opacity:.55,rx:8});
+  if(!narrow) T(l+cw*4.5,P1.t-8,'Early wet season',{'text-anchor':'middle','font-weight':600,fill:'#9A444C'});
+  T(l,14,'Average daily rainfall (mm)',{'font-weight':600,fill:'#2B2326','font-size':12});
+  T(l,P2.t-26,'Average river height (m)',{'font-weight':600,fill:'#2B2326','font-size':12});
+  [0,4,8].forEach(v=>{el('line',{x1:l,x2:W-r,y1:y1(v),y2:y1(v),stroke:'#EFE6E4'});T(l-6,y1(v)+4,v,{'text-anchor':'end'});});
+  [0,2.5,5].forEach(v=>{el('line',{x1:l,x2:W-r,y1:y2(v),y2:y2(v),stroke:'#EFE6E4'});T(l-6,y2(v)+4,v,{'text-anchor':'end'});});
+  const bars=[],pts=[];
+  order.forEach((d,i)=>{const h=Math.max(1,P1.t+P1.h-y1(d[1])), bw=cw*.32, rr=Math.min(4,h);
+    bars.push(el('path',{d:`M${cx(i)-bw},${P1.t+P1.h}V${P1.t+P1.h-h+rr}q0,-${rr} ${rr},-${rr}H${cx(i)+bw-rr}q${rr},0 ${rr},${rr}V${P1.t+P1.h}Z`,fill:'#00897B'}));
+    T(cx(i),P2.t+P2.h+22,NAMES[d[0]-1],{'text-anchor':'middle'});});
+  el('path',{d:order.map((d,i)=>`${i?'L':'M'}${cx(i)},${y2(d[2])}`).join(''),fill:'none',stroke:'#9B5BA5','stroke-width':2,'stroke-linejoin':'round'});
+  order.forEach(d=>pts.push(el('circle',{cx:cx(order.indexOf(d)),cy:y2(d[2]),r:4.5,fill:'#9B5BA5',stroke:'#fff','stroke-width':2})));
+  const iJan=order.findIndex(d=>d[0]===1), iFeb=order.findIndex(d=>d[0]===2);
+  const callout=Object.assign({'font-weight':600,fill:'#2B2326','font-size':11.5},HALO);
+  T(cx(iJan),y1(order[iJan][1])-8,'Rain peaks',Object.assign({'text-anchor':'middle'},callout));
+  if(narrow) T(cx(iFeb),y2(order[iFeb][2])-12,'River peaks',Object.assign({'text-anchor':'middle'},callout));
+  else T(cx(iFeb)+10,y2(order[iFeb][2])-4,'River peaks a month later',Object.assign({'text-anchor':'start'},callout));
+  const guide=el('rect',{y:P1.t-4,height:P2.t+P2.h-P1.t+8,width:cw,fill:'#2B2326',opacity:0,rx:6,'pointer-events':'none'});
+  const off=()=>{tip.style.opacity=0;guide.setAttribute('opacity',0);bars.forEach(b=>b.setAttribute('opacity',1));pts.forEach(p=>p.setAttribute('r',4.5));};
+  order.forEach((d,i)=>{const hit=el('rect',{x:l+cw*i,y:0,width:cw,height:H,fill:'transparent'});
+    const on=()=>{guide.setAttribute('x',l+cw*i);guide.setAttribute('opacity',.05);
+      bars.forEach((b,k)=>b.setAttribute('opacity',k===i?1:.45)); pts.forEach((p,k)=>p.setAttribute('r',k===i?6.5:4.5));
+      const rb=svg.getBoundingClientRect();
+      tip.innerHTML=`<b>${FULL[d[0]-1]}</b><br>Rain: ${d[1].toFixed(1)}mm a day<br>River: ${d[2].toFixed(1)}m`;
+      tip.style.left=Math.min(Math.max(cx(i)/W*rb.width,70),rb.width-70)+'px'; tip.style.top=(Math.min(y1(d[1]),P1.t+P1.h-30)/H*rb.height)+'px'; tip.style.opacity=1;};
+    hit.addEventListener('pointerenter',on); hit.addEventListener('pointerdown',on);});
+  svg.addEventListener('pointerleave',off);
+  document.getElementById('lagTbl').innerHTML='<tr><th>Month</th><th>Avg daily rain</th><th>Avg river height</th></tr>'+order.map(d=>`<tr><td>${FULL[d[0]-1]}</td><td>${d[1]}mm</td><td>${d[2]}m</td></tr>`).join('');
+}
+
+buildLag(); buildFlood(FLOODS[floodCur].map(()=>0));
+let rz, lastW=innerWidth; addEventListener('resize',()=>{clearTimeout(rz); rz=setTimeout(()=>{if(innerWidth!==lastW){lastW=innerWidth; buildLag(); buildFlood();}},150);});
+
+/* ---------- Dashboard viewer ---------- */
+(function(){
+  const SHOTS=["images/img-b9d7d0ec.jpg","images/img-ca7b2d06.jpg","images/img-e5572d30.jpg"];
+  const CAPS=[
+    "<b>The story.</b> 130 years of temperature, the severity of the last six floods, and the monthly rhythm of rain and river height that reveals the two-month lag.",
+    "<b>Driving factors.</b> Pick a flood and see the 3 months and 30 days of rain before it, measured against the 450mm threshold.",
+    "<b>Flood watch.</b> Tracks this season's October to December rain against flood-year averages, and 30-day rain and river height against their warning levels."
+  ];
+  const tabs=document.querySelectorAll('[role=tab]'), shot=document.getElementById('shot'), cap=document.getElementById('dashCap');
+  const show=i=>{tabs.forEach(t=>t.setAttribute('aria-selected',t.dataset.i==i)); shot.src=SHOTS[i]; shot.alt='Dashboard page '+(+i+1); cap.innerHTML=CAPS[i];};
+  tabs.forEach(t=>t.addEventListener('click',()=>show(t.dataset.i))); show(0);
+  if(TABLEAU_URL){
+    const link=document.getElementById('tabLink'); link.href=TABLEAU_URL; link.style.display='inline-flex';
+    if(matchMedia('(min-width: 900px)').matches){
+      const f=document.getElementById('embed'); f.src=TABLEAU_URL+'?:showVizHome=no&:embed=true'; f.style.display='block';
+      document.getElementById('screen').style.display='none'; document.querySelector('.tabs').style.display='none'; cap.innerHTML='<b>Interactive.</b> Use the tabs and filters inside the dashboard to explore each flood.';
+    }
+  }
+  const z=document.getElementById('zoom');
+  document.getElementById('screen').addEventListener('click',()=>{document.getElementById('zoomImg').src=shot.src; z.showModal();});
+  document.querySelectorAll('[data-zoom]').forEach(b=>b.addEventListener('click',()=>{const im=b.querySelector('img');document.getElementById('zoomImg').src=im.src;document.getElementById('zoomImg').alt=im.alt;z.showModal();}));
+  z.querySelector('button').onclick=()=>z.close(); z.addEventListener('click',e=>{if(e.target===z)z.close();});
+})();
+</script>
+</body>
+</html>

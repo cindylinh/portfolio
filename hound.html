@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hound Forward Launch Strategy | Cindy Linh Dang</title>
+<meta name="description" content="Case study: go-to-market, pricing and competitor strategy for Hound Forward, a premium dog wellness subscription. Adopted by the founder.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF8F6; --ink:#2B2326; --muted:#6F6468; --rose:#B5575F; --rose-dark:#9A444C; --rose-soft:#F4E4E3; --line:#EADFDD;
+  --grn:#2F6B4F; --grn-dark:#22503B; --grn-soft:#E3F0E8; --base:#C9C0C4;
+  --serif:"Newsreader", Georgia, "Times New Roman", serif;
+  --sans:"DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.7 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+:focus-visible{outline:2px solid var(--grn);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;line-height:1.08}
+h2{font-size:clamp(2rem,3.6vw,2.8rem);margin-bottom:14px}
+h1 em,h2 em{font-style:italic;color:var(--grn)}
+p{margin:0 0 14px}
+section{padding:96px 0 0}
+.lead{font-size:1.15rem;color:var(--muted);max-width:40em}
+
+.nav .wrap{height:76px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--serif);font-size:1.5rem;color:var(--ink);text-decoration:none;font-weight:500}
+.back{display:inline-flex;align-items:center;gap:8px;color:var(--muted);text-decoration:none;font-size:.95rem}
+.back:hover{color:var(--ink)}
+.back svg{width:16px;height:16px}
+
+.badge{display:inline-flex;font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--grn);padding:7px 14px;border-radius:999px;margin-bottom:22px}
+.head h1{font-size:clamp(2.6rem,5.6vw,4.6rem);max-width:13em;letter-spacing:-.01em}
+.head .lead{margin-top:20px}
+.meta{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin:40px 0 0;padding:24px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.meta dt{font-size:.82rem;color:var(--muted);margin-bottom:2px}
+.meta dd{margin:0;font-weight:500;line-height:1.45}
+.question{margin-top:36px;background:var(--grn-dark);color:#fff;border-radius:24px;padding:32px 36px}
+.question small{display:block;font-size:.82rem;opacity:.8;margin-bottom:10px}
+.question p{font-family:var(--serif);font-size:clamp(1.4rem,2.6vw,2rem);line-height:1.3;margin:0}
+
+.outcomes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+.oc{background:#fff;border-radius:18px;padding:22px}
+.oc b{display:block;font-family:var(--serif);font-weight:400;font-size:1.5rem;line-height:1.2;color:var(--grn);margin-bottom:6px}
+.oc p{margin:0;font-size:.92rem;color:var(--muted)}
+
+.card{margin-top:28px;background:#fff;border-radius:24px;padding:30px 32px 26px}
+.card h3{font-family:var(--sans);font-size:1.05rem;font-weight:600;margin:0 0 4px}
+.card .sub{font-size:.9rem;color:var(--muted);margin:0 0 16px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.note{font-size:.82rem;color:var(--muted);margin:12px 0 0}
+.takeaway{margin-top:18px;background:var(--grn-soft);border-radius:14px;padding:14px 18px;font-size:.95rem}
+.takeaway b{color:var(--grn-dark)}
+
+/* scorecard */
+.pick{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.pick button{border:1px solid var(--line);background:var(--bg);font:500 .9rem var(--sans);color:var(--ink);padding:8px 15px;border-radius:999px;cursor:pointer}
+.pick button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.legend{display:flex;gap:18px;font-size:.85rem;color:var(--muted);margin-bottom:10px;flex-wrap:wrap}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.sc{display:grid;gap:10px}
+.sr{display:grid;grid-template-columns:190px 1fr 92px;gap:14px;align-items:center}
+.sr .l{font-size:.92rem;line-height:1.3}
+.sr .bars{display:grid;gap:3px}
+.sr .b{height:15px;border-radius:0 4px 4px 0;position:relative;transition:width .4s cubic-bezier(.2,.7,.2,1)}
+.sr .b span{position:absolute;left:calc(100% + 6px);top:50%;transform:translateY(-50%);font-size:.74rem;color:var(--muted)}
+.sr .v{font-size:.82rem;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.ahead{color:var(--grn)}.behind{color:var(--rose-dark)}.even{color:var(--muted)}
+
+/* pricing */
+.scale{position:relative;height:120px;margin:16px 6px 6px}
+.scale .axis{position:absolute;left:0;right:0;top:70px;height:2px;background:var(--line)}
+.scale .band{position:absolute;top:52px;height:38px;background:var(--grn-soft);border:1px dashed var(--grn);border-radius:8px}
+.scale .band span{position:absolute;top:-24px;left:0;font-size:.78rem;color:var(--grn-dark);font-weight:600;white-space:nowrap}
+.tier{position:absolute;top:38px;transform:translateX(-50%);text-align:center}
+.tier .dot{width:18px;height:18px;border-radius:50%;background:var(--grn);border:3px solid #fff;box-shadow:0 0 0 1px var(--grn);margin:24px auto 6px}
+.tier.out .dot{background:#fff}
+.tier b{display:block;font-size:.95rem}
+.tier small{font-size:.75rem;color:var(--muted);white-space:nowrap}
+.ticks{display:flex;justify-content:space-between;font-size:.75rem;color:var(--muted);margin:30px 6px 0}
+.hb{display:grid;grid-template-columns:170px 1fr 48px;gap:10px;align-items:center;margin:10px 0;font-size:.92rem}
+.hb .t{height:24px;background:var(--bg);border-radius:6px;overflow:hidden}
+.hb .f{height:100%;background:var(--grn);border-radius:0 6px 6px 0}
+.hb .v{font-weight:600;text-align:right}
+
+/* segments */
+.seq{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px}
+.sg{border-radius:18px;padding:20px;background:var(--bg);position:relative}
+.sg .n{font-size:.78rem;font-weight:600;color:var(--grn-dark)}
+.sg b{display:block;font-family:var(--serif);font-weight:400;font-size:1.45rem;margin:4px 0 6px}
+.sg p{margin:0;font-size:.9rem;color:var(--muted)}
+.sg:first-child{background:var(--grn-soft)}
+
+/* roadmap */
+.road{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:8px;position:relative}
+.ph{padding:20px 20px 4px;border-top:3px solid var(--line)}
+.ph:first-child{border-color:var(--grn)}
+.ph small{font-size:.78rem;color:var(--muted)}
+.ph b{display:block;font-weight:600;margin:2px 0 8px}
+.ph ul{margin:0;padding-left:1.05rem;font-size:.9rem;color:var(--muted)}
+.ph li{margin:.25rem 0}
+.ab{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
+.ab div{background:var(--bg);border-radius:14px;padding:16px}
+.ab small{font-size:.78rem;color:var(--muted)}
+.ab .p{display:flex;gap:6px;margin:8px 0 6px;flex-wrap:wrap}
+.ab .p span{font-size:.85rem;border:1px solid var(--line);background:#fff;border-radius:8px;padding:4px 9px}
+.ab .p span.hi{background:var(--grn);color:#fff;border-color:var(--grn)}
+.ab p{margin:0;font-size:.85rem;color:var(--muted)}
+
+.quote{margin-top:96px;background:var(--grn);color:#fff;border-radius:28px;padding:clamp(36px,6vw,64px)}
+.quote blockquote{margin:0;font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.3;max-width:28em}
+.quote figcaption{margin-top:18px;font-size:.95rem;opacity:.92}
+.quote figcaption b{display:block;font-weight:600}
+.fine{font-size:.82rem;color:var(--muted);margin-top:14px}
+.next{display:flex;justify-content:space-between;gap:20px;padding:56px 0 72px;flex-wrap:wrap}
+.next a{color:var(--ink);text-decoration:none;font-weight:500}
+.next a:hover{color:var(--grn)}
+.next small{display:block;color:var(--muted);font-weight:400;font-size:.82rem}
+
+@media (max-width:900px){
+  .meta{grid-template-columns:1fr 1fr}
+  .outcomes,.two,.seq,.road{grid-template-columns:1fr}
+  .road .ph{border-top:0;border-left:3px solid var(--line);padding:6px 0 14px 18px}
+  .road .ph:first-child{border-left-color:var(--grn)}
+}
+@media (max-width:640px){
+  .wrap{padding:0 20px}
+  section{padding-top:72px}
+  .card{padding:22px 18px}
+  .sr{grid-template-columns:104px 1fr 70px;gap:8px}
+  .sr .l{font-size:.8rem}
+  .hb{grid-template-columns:120px 1fr 42px;font-size:.84rem}
+  .tier small{display:none}
+  .ab{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23B5575F'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='40' fill='%23FBF8F6'%3EC%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#FBF8F6">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hound Forward Launch Strategy | Cindy Linh Dang">
+<meta property="og:description" content="Case study: go-to-market, pricing and competitor strategy for Hound Forward, a premium dog wellness subscription. Adopted by the founder.">
+<meta property="og:url" content="https://cindylinh.github.io/portfolio/hound.html">
+<meta property="og:image" content="https://cindylinh.github.io/portfolio/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<header class="nav"><div class="wrap">
+  <a class="logo" href="index.html">Cindy Linh Dang</a>
+  <a class="back" href="index.html#work"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5m6-6-6 6 6 6"/></svg>All projects</a>
+</div></header>
+
+<main>
+<section class="head" style="padding-top:40px">
+  <div class="wrap">
+    <span class="badge">Real client · Adopted by the founder</span>
+    <h1>Sell it as prevention, <em>not a treat box.</em></h1>
+    <p class="lead">A go-to-market, pricing and competitor strategy for Hound Forward, a premium Australian dog wellness subscription preparing to launch. Built as a six-person consulting team, working directly with the founder.</p>
+    <dl class="meta">
+      <div><dt>Client</dt><dd>Hound Forward, dog wellness subscription start-up</dd></div>
+      <div><dt>Role</dt><dd>Strategy consultant, six-person team</dd></div>
+      <div><dt>Methods</dt><dd>PESTLE, competitor scorecard, segmentation, pricing analysis</dd></div>
+      <div><dt>Evidence</dt><dd>100 dog-owner interviews, market and competitor research</dd></div>
+    </dl>
+    <div class="question">
+      <small>The brief</small>
+      <p>Who should Hound Forward target first, how should it price its three subscription tiers, and how should it launch, before spending money on marketing?</p>
+    </div>
+    <div class="outcomes">
+      <div class="oc"><b>Adopted</b><p>The founder used our personas and rollout sequencing directly in his real launch plan.</p></div>
+      <div class="oc"><b>Validated</b><p>Our pricing recommendation matched the client's own financial modelling.</p></div>
+      <div class="oc"><b>"Like an agency deck"</b><p>The founder's written feedback singled out the competitor analysis as a standout.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Where Hound Forward can win, <em>and where it can't yet</em></h2>
+    <p class="lead">We scored four direct competitors against Hound Forward on seven metrics that matter to premium dog owners. Pick a competitor to compare.</p>
+    <div class="card">
+      <div class="pick" role="group" aria-label="Competitor" id="pick"></div>
+      <div class="legend"><span><i style="background:var(--grn)"></i>Hound Forward</span><span><i style="background:var(--base)"></i><span id="cName">Lyka</span></span></div>
+      <div class="sc" id="sc"></div>
+      <p class="takeaway" id="take"></p>
+      <p class="note">Scores from 1 to 5, based on our review of each brand's offer, credentials, technology and operations.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>The price was right. <em>The framing needed work.</em></h2>
+    <p class="lead">Hound Forward planned three tiers. We tested them against what 100 dog owners said they would pay, and what makes them willing to pay more.</p>
+    <div class="two">
+      <div class="card">
+        <h3>Tiers against willingness to pay</h3>
+        <p class="sub">Most owners prefer A$50–A$89 a month. Few pay A$90+ consistently.</p>
+        <div class="scale" role="img" aria-label="Tiers at 59 and 89 dollars sit inside the 50 to 89 dollar comfort range; the 129 dollar tier sits above it">
+          <div class="axis"></div>
+          <div class="band" style="left:10%;width:39%"><span>Comfort range A$50–89</span></div>
+          <div class="tier" style="left:19%"><div class="dot"></div><b>$59</b><small>Entry</small></div>
+          <div class="tier" style="left:49%"><div class="dot"></div><b>$89</b><small>Core</small></div>
+          <div class="tier out" style="left:89%"><div class="dot"></div><b>$129</b><small>Upgrade</small></div>
+        </div>
+        <div class="ticks"><span>$40</span><span>$60</span><span>$80</span><span>$100</span><span>$120</span><span>$140</span></div>
+        <p class="takeaway"><b>Recommendation:</b> lead with $89 as the core tier, keep $59 for trial, and treat $129 as an upgrade, not the main revenue driver.</p>
+      </div>
+      <div class="card">
+        <h3>What makes owners pay more</h3>
+        <p class="sub">Share of interviewed owners naming each as a reason to pay a premium.</p>
+        <div class="hb"><span>Australian-made</span><div class="t"><div class="f" style="width:82%"></div></div><span class="v">82%</span></div>
+        <div class="hb"><span>Vet recommended</span><div class="t"><div class="f" style="width:76%"></div></div><span class="v">76%</span></div>
+        <div class="hb"><span>Targets a health issue</span><div class="t"><div class="f" style="width:69%"></div></div><span class="v">69%</span></div>
+        <p class="takeaway"><b>Insight:</b> vet visits average A$548–630 a year, and acute treatment can exceed A$3,000. Framing the box as preventive care, not a luxury, justifies the premium price.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Launch to one segment first</h2>
+    <p class="lead">Instead of targeting every dog owner at once, we sequenced the segments to protect cash flow and learn fast.</p>
+    <div class="card">
+      <div class="seq">
+        <div class="sg"><span class="n">First · Months 1–3</span><b>Millennials, 28–45</b><p>Highest spend and fastest to try new subscription brands, so they prove the model and fund early growth. Reached through short video, creators and email.</p></div>
+        <div class="sg"><span class="n">Second · Once proven</span><b>Gen X, 45–60</b><p>Loyal, higher household spend but cautious. They enter once reviews and vet endorsements exist to reassure them.</p></div>
+        <div class="sg"><span class="n">Later · Small tests</span><b>Gen Z, 18–27</b><p>Fast-growing and social, but lower income. Used to amplify awareness through TikTok, not to drive early revenue.</p></div>
+      </div>
+    </div>
+    <div class="two">
+      <div class="card">
+        <h3>A three-phase launch</h3>
+        <p class="sub">Each phase has a clear goal and the metrics that decide when to move on.</p>
+        <div class="road">
+          <div class="ph"><small>Phase 1</small><b>Validate</b><ul><li>One hero box at $89</li><li>First 200 customers</li><li>Track CAC, retention, NPS</li></ul></div>
+          <div class="ph"><small>Phase 2</small><b>Optimise</b><ul><li>Refine box contents</li><li>Test Gen X</li><li>Add vet content</li></ul></div>
+          <div class="ph"><small>Phase 3</small><b>Scale</b><ul><li>Partners and creators</li><li>Annual plans</li><li>Bundle upgrades</li></ul></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Price anchoring tests</h3>
+        <p class="sub">Two layouts to A/B test on the pricing page, both designed to make $89 the natural choice.</p>
+        <div class="ab">
+          <div><small>Test A · Premium first</small><div class="p"><span class="hi">$129</span><span>$89</span><span>$59</span></div><p>A high anchor makes $89 feel affordable.</p></div>
+          <div><small>Test B · Standard first</small><div class="p"><span class="hi">$89</span><span>$129</span><span>$59</span></div><p>Spotlighting $89 makes it feel like the normal choice.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <figure class="quote">
+    <blockquote>&ldquo;The insights will directly influence how I approach the launch and early growth of Hound Forward.&rdquo;</blockquote>
+    <figcaption><b>Paul Dunn</b>Founder, Hound Forward</figcaption>
+  </figure>
+  <p class="fine">Client feedback shared with permission. Interview data provided by the client. Full report available on request.</p>
+  <section class="cta-end" aria-label="Contact">
+<style>
+.cta-end{max-width:1120px;margin:72px auto 8px;padding:0 32px;box-sizing:border-box}
+.cta-end .in{background:#2B2326;color:#F7EFEC;border-radius:28px;padding:44px 48px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px;position:relative;overflow:hidden}
+.cta-end .in::before{content:"";position:absolute;right:-12%;bottom:-60%;width:60%;height:160%;background:radial-gradient(closest-side,rgba(181,87,95,.35),transparent);pointer-events:none}
+.cta-end h2{font-family:"Newsreader",Georgia,serif;font-weight:400;font-size:clamp(1.8rem,3.4vw,2.6rem);line-height:1.1;margin:0;position:relative}
+.cta-end h2 em{font-style:italic;color:#F2B6BB}
+.cta-end .b{display:flex;flex-wrap:wrap;gap:10px;position:relative}
+.cta-end a{display:inline-flex;align-items:center;padding:12px 22px;border-radius:999px;border:1.5px solid rgba(247,239,236,.4);color:#fff;text-decoration:none;font-weight:600;font-size:.95rem;font-family:"DM Sans",system-ui,sans-serif;transition:transform .2s,border-color .2s,background .2s}
+.cta-end a:hover{transform:translateY(-2px);border-color:#fff}
+.cta-end a.s{background:#B5575F;border-color:#B5575F}.cta-end a.s:hover{background:#c96a72;border-color:#c96a72}
+@media (max-width:600px){.cta-end{padding:0 16px;margin-top:56px}.cta-end .in{padding:32px 24px}.cta-end .b a{flex:1 1 auto;justify-content:center}}
+</style>
+<div class="in"><h2>So, what <em>decision</em> are you trying to make?</h2>
+<div class="b"><a class="s" href="mailto:danglinh260981@gmail.com">Email me</a><a href="https://www.linkedin.com/in/cindy-linh-dang" target="_blank" rel="noopener">LinkedIn ↗</a><a href="Cindy_Dang_CV.pdf" download>Download CV</a></div></div>
+</section>
+<nav class="next" aria-label="More projects">
+    <a href="dd.html"><small>Previous project</small>Workforce and Service Delivery Review</a>
+    <a href="customer.html" style="text-align:right"><small>Next project</small>Customer Analytics</a>
+  </nav>
+</div>
+</main>
+
+<script>
+const MET=['Value proposition','Australian-made','Premium, measurable impact','Health personalisation','Verification and vet backing','Tech differentiation','Supply scalability'];
+const HF=[4,4,5,5,3,4,3];
+const COMP={'Lyka':[4,4,4,4,5,2,5],'Scratch':[4,5,4,3,4,2,5],"Olly's Box":[3,4,2,2,1,1,4],'Laila & Me':[3,4,2,2,3,1,3]};
+const TAKE={'Lyka':'<b>Against Lyka,</b> Hound Forward wins on premium outcomes, health personalisation and technology, but trails on vet credentials and national logistics. Credibility is the gap to close first.',
+ 'Scratch':'<b>Against Scratch,</b> the same pattern: a stronger product story, but weaker proof and scale. Scratch also leads on Australian-made, which is expected, not a differentiator.',
+ "Olly's Box":'<b>Against Olly\'s Box,</b> Hound Forward leads on six of seven metrics. Fun enrichment boxes compete on price, not health.',
+ 'Laila & Me':'<b>Against Laila & Me,</b> Hound Forward leads on product and technology, and matches on verification and scale.'};
+let cur='Lyka';
+const pick=document.getElementById('pick');
+Object.keys(COMP).forEach(n=>{const b=document.createElement('button');b.type='button';b.textContent=n;b.setAttribute('aria-pressed',n===cur);b.onclick=()=>{cur=n;[...pick.children].forEach(o=>o.setAttribute('aria-pressed',o===b));draw();};pick.appendChild(b);});
+function draw(){
+  const c=COMP[cur]; document.getElementById('cName').textContent=cur;
+  document.getElementById('sc').innerHTML=MET.map((m,i)=>{const d=HF[i]-c[i];const cls=d>0?'ahead':d<0?'behind':'even';const t=d>0?'Ahead +'+d:d<0?'Behind '+d:'Level';
+    return `<div class="sr"><span class="l">${m}</span><div class="bars" role="img" aria-label="${m}: Hound Forward ${HF[i]}, ${cur} ${c[i]} out of 5"><div class="b" style="width:${HF[i]*17}%;background:var(--grn)"><span>${HF[i]}</span></div><div class="b" style="width:${c[i]*17}%;background:var(--base)"><span>${c[i]}</span></div></div><span class="v ${cls}">${t}</span></div>`;}).join('');
+  document.getElementById('take').innerHTML=TAKE[cur];
+}
+draw();
+</script>
+</body>
+</html>
